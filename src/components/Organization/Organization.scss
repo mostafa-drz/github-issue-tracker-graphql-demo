@@ -1,0 +1,19 @@
+.organization {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  h2 {
+    background-color: #fff;
+    width: 300px;
+  }
+  img {
+    width: 200px;
+    height: 200px;
+    border-radius: 400px;
+  }
+}
