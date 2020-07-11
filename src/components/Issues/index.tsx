@@ -41,26 +41,30 @@ const Issues: React.FC<{ issues: Issue[]; totalCount: number }> = (props) => {
     };
   }, {});
   return (
-    <ul className="issues">
+    <>
       <h3>There are {totalCount} issues open for this repository</h3>
-      {issues.map((issue: Issue) => (
-        <li key={issue.id} className="issue">
-          <a href={issue.url} target="_blank">
-            {issue.title}
-          </a>
-          <div className="reactions">
-            {Object.keys(_issuesReactions[issue.id]).map((current: string) => (
-              <span>
-                <span className="reaction-number">
-                  {_issuesReactions[issue.id][current]}
-                </span>
-                <span className="reaction-emoji">{REACTION[current]} </span>
-              </span>
-            ))}
-          </div>
-        </li>
-      ))}
-    </ul>
+      <ul className="issues">
+        {issues.map((issue: Issue) => (
+          <li key={issue.id} className="issue">
+            <a href={issue.url} target="_blank">
+              {issue.title}
+            </a>
+            <div className="reactions">
+              {Object.keys(_issuesReactions[issue.id]).map(
+                (current: string) => (
+                  <span>
+                    <span className="reaction-number">
+                      {_issuesReactions[issue.id][current]}
+                    </span>
+                    <span className="reaction-emoji">{REACTION[current]} </span>
+                  </span>
+                )
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
