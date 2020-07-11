@@ -3,7 +3,7 @@ export interface Issue {
   title: string;
   url: string;
 }
-export interface Repository {
+export interface IRepository {
   id: string;
   description: string;
   url: string;
@@ -18,5 +18,5 @@ export interface IOrganization {
   name: string;
   url: string;
   avatarUrl?: string;
-  repository: Repository;
+  repository: IRepository;
 }

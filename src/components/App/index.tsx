@@ -7,6 +7,7 @@ import { Spin } from "antd";
 
 import "./App.scss";
 import Organization from "../Organization";
+import Repositorty from "../Repository";
 
 function App() {
   const [orgName, setOrgnName] = useState<string>("");
@@ -59,6 +60,9 @@ function App() {
         </Button>
       </form>
       {data?.organization && <Organization organization={data.organization} />}
+      {data?.organization?.repository && (
+        <Repositorty repository={data.organization.repository} />
+      )}
     </div>
   );
 }

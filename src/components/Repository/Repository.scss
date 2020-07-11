@@ -1,0 +1,23 @@
+.repository {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 300px;
+  align-items: center;
+  height: 250px;
+
+  p {
+    padding: 2%;
+    background-color: #0074d9;
+    color: #fff;
+    flex: 1;
+  }
+  h2 {
+    background-color: #001f3f;
+    width: 300px;
+    color: #fff;
+    margin-bottom: 0;
+  }
+}
