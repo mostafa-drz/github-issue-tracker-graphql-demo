@@ -27,7 +27,7 @@ export const GET_ORG_Repo = `
       description,
       url,
       name,
-      issues(last:$issueCount){
+      issues(last:$issueCount, states:[OPEN]){
 				nodes{
           id,
           title,

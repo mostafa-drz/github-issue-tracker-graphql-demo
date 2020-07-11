@@ -78,7 +78,10 @@ function App() {
             <Repositorty repository={data.organization.repository} />
           )}
           {data?.organization.repository.issues && (
-            <Issues issues={data?.organization.repository.issues.nodes} />
+            <Issues
+              issues={data?.organization.repository.issues.nodes}
+              totalCount={data?.organization.repository.issues.totalCount}
+            />
           )}
         </>
       )}

@@ -12,8 +12,8 @@ const REACTION: { [key: string]: string } = {
   ROCKET: "🚀",
   EYES: "👀",
 };
-const Issues: React.FC<{ issues: Issue[] }> = (props) => {
-  const { issues } = props;
+const Issues: React.FC<{ issues: Issue[]; totalCount: number }> = (props) => {
+  const { issues, totalCount } = props;
   const _issuesReactions: {
     [issueId: string]: {
       [key: string]: number;
@@ -42,12 +42,12 @@ const Issues: React.FC<{ issues: Issue[] }> = (props) => {
   }, {});
   return (
     <ul className="issues">
+      <h3>There are {totalCount} issues open for this repository</h3>
       {issues.map((issue: Issue) => (
         <li key={issue.id} className="issue">
           <a href={issue.url} target="_blank">
             {issue.title}
           </a>
-          <span> - {issue.reactions.totalCount}</span>
           <div className="reactions">
             {Object.keys(_issuesReactions[issue.id]).map((current: string) => (
               <span>
