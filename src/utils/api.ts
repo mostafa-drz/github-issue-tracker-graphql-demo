@@ -28,6 +28,7 @@ export const GET_ORG_Repo = `
       url,
       name,
       forkCount,
+      viewerHasStarred,
       stargazers{
         totalCount
       }
@@ -78,4 +79,28 @@ query LoadMoreIssues($repoName:String!, $owner:String!,$before:String) {
       }
     }
   }
+`;
+
+export const ADD_STAR = `
+  mutation AddStar($repoId:ID!){
+    addStar(input:{starrableId:$repoId}){
+    starrable{
+      stargazers{
+        totalCount
+      }
+    }
+  }
+}
+`;
+
+export const REMOVE_STAR = `
+  mutation RemoveStar($repoId:ID!){
+  removeStar(input:{starrableId:$repoId}){
+    starrable{
+      stargazers{
+        totalCount
+      }
+    }
+  }
+}
 `;

@@ -29,6 +29,7 @@ export interface IRepository {
   url: string;
   name: string;
   issues: IIssues;
+  viewerHasStarred: boolean;
   forkCount: number;
   stargazers: {
     totalCount: number;
