@@ -29,6 +29,10 @@ export interface IRepository {
   url: string;
   name: string;
   issues: IIssues;
+  forkCount: number;
+  stargazers: {
+    totalCount: number;
+  };
 }
 export interface IOrganization {
   id: string;

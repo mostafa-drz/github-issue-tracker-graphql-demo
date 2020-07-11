@@ -27,6 +27,10 @@ export const GET_ORG_Repo = `
       description,
       url,
       name,
+      forkCount,
+      stargazers{
+        totalCount
+      }
       issues(last:$issueCount, states:[OPEN]){
         pageInfo {
           endCursor,
