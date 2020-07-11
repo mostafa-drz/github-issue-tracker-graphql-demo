@@ -3,8 +3,13 @@ import { api } from "./api";
 import { AxiosResponse, AxiosError } from "axios";
 import { GraphqlError } from "../types";
 
+interface Fetch<T> {
+  query: string;
+  variables?: { [key: string]: any };
+  onSuccess?: (data: T) => void;
+}
 const useAPI: <T>() => {
-  fetch: (query: string, variables?: { [key: string]: any }) => void;
+  fetch: (params: Fetch<T | GraphqlError>) => void;
   data: T | GraphqlError | undefined;
   error: string | undefined;
   isLoading: boolean;
@@ -13,7 +18,8 @@ const useAPI: <T>() => {
   const [error, setError] = useState<string | undefined>();
   const [data, setData] = useState<T>();
 
-  const fetch = (query: string, variables?: { [key: string]: any }) => {
+  const fetch = (params: Fetch<T>) => {
+    const { query, variables, onSuccess } = params;
     setIsLoading(true);
     api
       .post("", {
@@ -22,6 +28,9 @@ const useAPI: <T>() => {
       })
       .then((response: AxiosResponse<T>) => {
         setData(response.data);
+        if (onSuccess) {
+          onSuccess(response.data);
+        }
       })
       .catch((error: AxiosError) => {
         setError(error.message || "Something went wrong:(");

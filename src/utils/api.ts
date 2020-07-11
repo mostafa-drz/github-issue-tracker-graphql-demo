@@ -28,6 +28,10 @@ export const GET_ORG_Repo = `
       url,
       name,
       issues(last:$issueCount, states:[OPEN]){
+        pageInfo {
+          endCursor,
+          hasPreviousPage
+        }
 				nodes{
           id,
           title,
@@ -45,4 +49,29 @@ export const GET_ORG_Repo = `
     }
   }
 }
+`;
+
+export const LOAD_MORE_ISSUES = `
+query LoadMoreIssues($repoName:String!, $owner:String!,$before:String) { 
+ 		repository(name:$repoName,owner:$owner){
+      issues(last:5,states:[OPEN],before:$before){
+        pageInfo {
+          endCursor
+        	hasPreviousPage,
+        }
+        nodes{
+          title,
+          title,
+          url,
+          reactions(last:5){
+            totalCount,
+            nodes{
+              id,
+              content
+            }
+          }
+        }
+      }
+    }
+  }
 `;

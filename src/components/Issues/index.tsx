@@ -1,6 +1,7 @@
 import React from "react";
-import { Issue, Reaction } from "../../types";
+import { Issue, Reaction, PageInfo } from "../../types";
 import "./Issues.scss";
+import { Button } from "antd";
 
 const REACTION: { [key: string]: string } = {
   THUMBS_UP: "👍",
@@ -12,8 +13,8 @@ const REACTION: { [key: string]: string } = {
   ROCKET: "🚀",
   EYES: "👀",
 };
-const Issues: React.FC<{ issues: Issue[]; totalCount: number }> = (props) => {
-  const { issues, totalCount } = props;
+const Issues: React.FC<Props> = (props) => {
+  const { issues, totalCount, onLoadMore, pageInfo } = props;
   const _issuesReactions: {
     [issueId: string]: {
       [key: string]: number;
@@ -64,8 +65,19 @@ const Issues: React.FC<{ issues: Issue[]; totalCount: number }> = (props) => {
           </li>
         ))}
       </ul>
+      {pageInfo?.hasPreviousPage && (
+        <Button type="primary" onClick={onLoadMore}>
+          Load More
+        </Button>
+      )}
     </>
   );
 };
 
+interface Props {
+  issues: Issue[];
+  totalCount: number;
+  onLoadMore: () => void;
+  pageInfo: PageInfo;
+}
 export default React.memo(Issues);

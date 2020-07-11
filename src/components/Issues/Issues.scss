@@ -2,6 +2,8 @@
   margin-top: 3%;
   border-top: 3px solid #001f3f;
   padding-top: 1%;
+  max-height: 400px;
+  overflow-y: auto;
   .issue {
     align-self: flex-start;
     text-align: left;

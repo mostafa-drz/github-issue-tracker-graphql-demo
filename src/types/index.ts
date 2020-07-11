@@ -3,6 +3,12 @@ export interface Reaction {
   content: string;
 }
 
+export interface PageInfo {
+  endCursor?: string;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor?: string;
+}
 export interface Issue {
   id: string;
   title: string;
@@ -12,15 +18,17 @@ export interface Issue {
     nodes: Reaction[];
   };
 }
+export interface IIssues {
+  totalCount: number;
+  pageInfo: PageInfo;
+  nodes: Issue[];
+}
 export interface IRepository {
   id: string;
   description: string;
   url: string;
   name: string;
-  issues: {
-    totalCount: number;
-    nodes: Issue[];
-  };
+  issues: IIssues;
 }
 export interface IOrganization {
   id: string;

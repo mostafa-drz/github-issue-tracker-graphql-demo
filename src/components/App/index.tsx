@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { Input, Button } from "antd";
-import { GET_ORG_Repo } from "../../utils/api";
-import { IOrganization } from "../../types";
+import { GET_ORG_Repo, LOAD_MORE_ISSUES } from "../../utils/api";
+import { IOrganization, IRepository, IIssues } from "../../types";
 import useAPI from "../../utils/useAPI";
 import { Spin } from "antd";
 import { Alert } from "antd";
@@ -14,10 +14,15 @@ import Issues from "../Issues";
 function App() {
   const [orgName, setOrgnName] = useState<string>("");
   const [repo, setRepo] = useState<string>("");
+  const [issues, setIssues] = useState<IIssues>();
 
   const { fetch, data, isLoading, error } = useAPI<{
     organization: IOrganization;
   }>();
+  const { fetch: loadMore, data: moreIssues, error: moreIssuesError } = useAPI<{
+    repository: IRepository;
+  }>();
+
   const onOrgChange = (e: React.FormEvent<HTMLInputElement>) => {
     setOrgnName(e.currentTarget.value);
   };
@@ -26,9 +31,41 @@ function App() {
   };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    fetch(GET_ORG_Repo, { orgName, repoName: repo });
+    fetch({
+      query: GET_ORG_Repo,
+      variables: { orgName, repoName: repo },
+      onSuccess: (data) => {
+        if ("organization" in data) {
+          setIssues(data.organization.repository.issues);
+        }
+      },
+    });
   };
-
+  const handleLoadMoreIssues = () => {
+    loadMore({
+      query: LOAD_MORE_ISSUES,
+      variables: {
+        repoName: repo,
+        owner: orgName,
+        before: issues?.pageInfo.endCursor,
+      },
+      onSuccess: (data) => {
+        if ("repository" in data) {
+          if (issues?.nodes) {
+            setIssues({
+              ...data.repository.issues,
+              nodes: issues?.nodes.concat(data.repository.issues.nodes),
+            });
+          } else {
+            setIssues({
+              ...data.repository.issues,
+              nodes: data.repository.issues.nodes,
+            });
+          }
+        }
+      },
+    });
+  };
   return (
     <div className="main-container">
       <h1>Github Issue Tracker</h1>
@@ -77,10 +114,12 @@ function App() {
           {data?.organization?.repository && (
             <Repositorty repository={data.organization.repository} />
           )}
-          {data?.organization.repository.issues && (
+          {issues && (
             <Issues
-              issues={data?.organization.repository.issues.nodes}
-              totalCount={data?.organization.repository.issues.totalCount}
+              issues={issues.nodes}
+              totalCount={issues.totalCount}
+              onLoadMore={handleLoadMoreIssues}
+              pageInfo={issues.pageInfo}
             />
           )}
         </>
