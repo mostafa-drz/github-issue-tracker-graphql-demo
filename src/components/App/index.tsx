@@ -4,10 +4,12 @@ import { GET_ORG_Repo } from "../../utils/api";
 import { IOrganization } from "../../types";
 import useAPI from "../../utils/useAPI";
 import { Spin } from "antd";
+import { Alert } from "antd";
 
 import "./App.scss";
 import Organization from "../Organization";
 import Repositorty from "../Repository";
+import Issues from "../Issues";
 
 function App() {
   const [orgName, setOrgnName] = useState<string>("");
@@ -26,6 +28,7 @@ function App() {
     e.preventDefault();
     fetch(GET_ORG_Repo, { orgName, repoName: repo });
   };
+
   return (
     <div className="main-container">
       <h1>Github Issue Tracker</h1>
@@ -59,9 +62,25 @@ function App() {
           )}
         </Button>
       </form>
-      {data?.organization && <Organization organization={data.organization} />}
-      {data?.organization?.repository && (
-        <Repositorty repository={data.organization.repository} />
+      {data && "errors" in data ? (
+        //Graphql error
+        <ul className="errors">
+          {data.errors.map((e) => (
+            <Alert key={e.message} message={e.message} type="error" />
+          ))}
+        </ul>
+      ) : (
+        <>
+          {data?.organization && (
+            <Organization organization={data.organization} />
+          )}
+          {data?.organization?.repository && (
+            <Repositorty repository={data.organization.repository} />
+          )}
+          {data?.organization.repository.issues && (
+            <Issues issues={data?.organization.repository.issues.nodes} />
+          )}
+        </>
       )}
     </div>
   );

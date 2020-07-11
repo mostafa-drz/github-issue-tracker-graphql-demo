@@ -20,3 +20,9 @@ export interface IOrganization {
   avatarUrl?: string;
   repository: IRepository;
 }
+
+export interface GraphqlError {
+  errors: {
+    message: string;
+  }[];
+}

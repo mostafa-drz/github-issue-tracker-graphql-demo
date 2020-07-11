@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { api } from "./api";
 import { AxiosResponse, AxiosError } from "axios";
+import { GraphqlError } from "../types";
 
 const useAPI: <T>() => {
   fetch: (query: string, variables?: { [key: string]: any }) => void;
-  data: T | undefined;
+  data: T | GraphqlError | undefined;
   error: string | undefined;
   isLoading: boolean;
 } = <T,>() => {
