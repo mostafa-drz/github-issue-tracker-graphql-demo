@@ -1,7 +1,16 @@
+export interface Reaction {
+  id: string;
+  content: string;
+}
+
 export interface Issue {
   id: string;
   title: string;
   url: string;
+  reactions: {
+    totalCount: number;
+    nodes: Reaction[];
+  };
 }
 export interface IRepository {
   id: string;

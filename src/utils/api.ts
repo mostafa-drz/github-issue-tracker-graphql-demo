@@ -31,7 +31,14 @@ export const GET_ORG_Repo = `
 				nodes{
           id,
           title,
-          url
+          url,
+          reactions(last:100){
+            totalCount,
+            nodes{
+              id,
+              content
+            }
+          }
         }
         totalCount
       }

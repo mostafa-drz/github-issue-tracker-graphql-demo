@@ -1,12 +1,23 @@
 .issues {
   margin-top: 3%;
-  li {
+  .issue {
     align-self: flex-start;
     text-align: left;
     font-size: 1.2rem;
     font-weight: bold;
+    margin-bottom: 1%;
+    border-bottom: 1px dotted;
+
     a {
       color: #001f3f;
+    }
+  }
+  .reactions {
+    .reaction-emoji {
+      font-size: 1.5rem;
+    }
+    .reaction-number {
+      font-size: 1rem;
     }
   }
 }
