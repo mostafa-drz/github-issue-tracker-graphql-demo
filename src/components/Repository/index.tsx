@@ -59,7 +59,7 @@ const Repository: React.FC<{ repository: IRepository }> = (props) => {
   return (
     <div className="repository">
       <div style={{ position: "relative" }}>
-        <a href={url} target="_blank">
+        <a href={url} target="_blank" rel="noopener noreferrer">
           <h2>{name}</h2>
         </a>
         <Button

@@ -16,10 +16,10 @@ function App() {
   const [repo, setRepo] = useState<string>("");
   const [issues, setIssues] = useState<IIssues>();
 
-  const { fetch, data, isLoading, error } = useAPI<{
+  const { fetch, data, isLoading } = useAPI<{
     organization: IOrganization;
   }>();
-  const { fetch: loadMore, data: moreIssues, error: moreIssuesError } = useAPI<{
+  const { fetch: loadMore } = useAPI<{
     repository: IRepository;
   }>();
 

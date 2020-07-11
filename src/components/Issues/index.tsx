@@ -47,7 +47,7 @@ const Issues: React.FC<Props> = (props) => {
       <ul className="issues">
         {issues.map((issue: Issue) => (
           <li key={issue.id} className="issue">
-            <a href={issue.url} target="_blank">
+            <a href={issue.url} target="_blank" rel="noopener noreferrer">
               {issue.title}
             </a>
             <div className="reactions">

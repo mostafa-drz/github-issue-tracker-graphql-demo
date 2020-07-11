@@ -4,14 +4,14 @@ import "./Organization.scss";
 
 const Organization: React.FC<Props> = (props) => {
   const {
-    organization: { name, id, url, avatarUrl },
+    organization: { name, url, avatarUrl },
   } = props;
   return (
     <div className="organization">
-      <a href={url} target="_blank">
+      <a href={url} target="_blank" rel="noopener noreferrer">
         <h2>{name}</h2>
       </a>
-      <img src={avatarUrl} />
+      <img src={avatarUrl} alt={name} />
     </div>
   );
 };
