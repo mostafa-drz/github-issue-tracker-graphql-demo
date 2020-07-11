@@ -114,6 +114,11 @@ function App() {
           {data?.organization?.repository && (
             <Repositorty repository={data.organization.repository} />
           )}
+          {data?.organization && !data.organization.repository && (
+            <div className="errors">
+              <Alert message="Repository not found :(" type="error" />
+            </div>
+          )}
           {issues && (
             <Issues
               issues={issues.nodes}
